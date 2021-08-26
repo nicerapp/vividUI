@@ -42,13 +42,14 @@ na.ui.vividButton = na.ui.vb = {
         b.state = b.btnCode.startupState;
         b.circumstance = b.btnCode.startupCircumstance;
         
-        na.ui.vb.calculateAnimSteps(b);
-        await na.ui.vb.redraw(b);
-
         let 
         c = b.btnCode.states[b.state].circumstances,
         l = b.btnCode.states[b.state].circumstances[b.circumstance].layers,
         ato = l.circleIcon_background.animTo.hover;
+
+        na.ui.vb.calculateAnimSteps(b);
+        await na.ui.vb.redraw(b);
+
         $('.circleIcon_background', b.el)[0].style.background = ato.steps[0];
 
         let layer = na.ui.vb.getLayer(b, l.circleIcon_svg.layerID);
@@ -138,7 +139,7 @@ na.ui.vividButton = na.ui.vb = {
                 !$(b.el).is('.disabled') 
                 && !$(b.el).is('.selected')
                 && !$(b.el).is('.recentlyClicked')
-                && !$(b.el).is('.'+b.btnCode.selectedState) 
+                //&& !$(b.el).is('.'+b.btnCode.selectedState) 
                 //&& !$(b.el).is('.'+b.btnCode.startupState)
             )
             
@@ -165,6 +166,10 @@ na.ui.vividButton = na.ui.vb = {
     onclick : function (evt) {
         var b = na.ui.vb.settings.buttons['#'+$(evt.currentTarget)[0].id];
         var selected = (b.state == b.btnCode.selectedState);
+        
+        b.circumstance = 'normal';
+        b.to.circumstance = 'hover';
+
 
         b.state = selected?b.btnCode.startupState:b.btnCode.selectedState;
         selected = (b.state == b.btnCode.selectedState);

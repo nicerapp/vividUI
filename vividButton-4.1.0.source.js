@@ -211,7 +211,7 @@ na.ui.vividButton = na.ui.vb = {
         
         setTimeout (function() {
             $(b.el).removeClass(b.btnCode.startupState).removeClass(b.btnCode.selectedState).addClass(b.state);
-        }, 1500);
+        }, 1000);
         if ( $(b.el).is('.featureIsActive') ) $(b.el).removeClass('featureIsActive'); else $(b.el).addClass('featureIsActive');
         
         if (!selected) {
@@ -219,7 +219,7 @@ na.ui.vividButton = na.ui.vb = {
             clearTimeout (na.ui.vb.settings.timeoutRecentlyClicked);
             na.ui.vb.settings.timeoutRecentlyClicked = setTimeout(function() {
                 $(b.el).removeClass('recentlyClicked');
-            }, 1500);
+            }, 1000);
         }
     },
     

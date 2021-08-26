@@ -101,7 +101,9 @@ na.ui.vividButton.buttonTypes['btn_audioVideo_playPause'] = {
                         $('#line2').addClass('atPlay');
                     }
                     if (
-                        $('#btnPlayPause').is('.paused')
+                        !$('#btnPlayPause').is('.recentlyClicked')
+                        && $('#btnPlayPause').is('.paused')
+                        && $('#line2').is('.atPlay')
                     ) {
                         $('#from_play_to_pause')[0].beginElement();
                         $('#line2').removeClass('atPlay');

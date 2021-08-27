@@ -63,7 +63,7 @@ na.ui.vividButton = na.ui.vb = {
         
         $(el).click(function() { na.ui.vb.onclick(event) });
     },
-    
+
     getLayer : function (b, layerID) {
         switch (layerID) {
             case 'b.btnCode.circumstances.normal.layers.circleIcon_background' : return b.btnCode.circumstances.normal.layers.circleIcon_background;
@@ -363,7 +363,7 @@ na.ui.vividButton = na.ui.vb = {
                 loadLayer = async function () {
                     let result;
                     try {
-                        var dt = na.m.changedDateTime_current();
+                        var dt = na.ui.vb.changedDateTime_current();
                         result = await $.ajax ({
                             type : 'GET',
                             url : l.src+'?c='+dt, 
@@ -395,7 +395,19 @@ na.ui.vividButton = na.ui.vb = {
         if (typeof loadLayer == 'function') {
             await loadLayer()
         }
-    }
+    },
+    
+    changedDateTime_current : function () {
+        var 
+        d = new Date(),
+        r = d.getFullYear() 
+            + ('0' + d.getMonth()+1).slice(-2)
+            + ('0' + d.getDate()).slice(-2)
+            + ('0' + d.getHours()).slice(-2)
+            + ('0' + d.getMinutes()).slice(-2)
+            + ('0' + d.getSeconds()).slice(-2);
+        return r;
+    }    
 };
 na.ui.vb.g = na.ui.vb.globals;
 na.ui.vb.s = na.ui.vb.settings;

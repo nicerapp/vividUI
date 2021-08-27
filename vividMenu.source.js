@@ -93,7 +93,7 @@ class naVividMenu {
                 t.resizeDoneCount = 0;
                 if (typeof callback=='function') callback(t);
             } else {
-                var it = t.items[t.resizeDoingIdx];
+                let it = t.items[t.resizeDoingIdx];
                 it.label = $(it.b.el).children('a').html();
                 it.pul = $(it.li).parents('ul')[0];
                 
@@ -105,12 +105,12 @@ class naVividMenu {
                 
                 $(it.b.el).css({display:'flex'});
                 
-                var 
+                let 
                 parent = t.items[it.parent],
                 l = levels['path '+it.path],
                 placing = 'right',
                 placingVertical = 'bottom',
-                left = jQuery(it.b.el).offset().left + (parent ? parent.offsetX : $(it.b.el).width()),
+                left = jQuery(it.b.el).offset().left - (parent ? parent.offsetX : $(it.b.el).width()),
                 right = (windowWidth - jQuery(it.b.el).offset().left /* - ($(it.b.el).width() * 0.7)*/ - (parent ? parent.offsetX : $(it.b.el).width())),
                 top = jQuery(it.b.el).offset().top + (parent ? parent.offsetY : $(it.b.el).height()),
                 bottom = (windowHeight - jQuery(it.b.el).offset().top /* - ($(it.b.el).width() * 0.7)*/ - (parent ? parent.offsetY : $(it.b.el).height()));
@@ -121,7 +121,7 @@ class naVividMenu {
                 if (placing=='left') var width = left; else var width = right;
                 if (top > bottom) placingVertical = 'top';
                 if (placingVertical=='top') var height = top; else var height = bottom;
-                //debugger;
+                //if (it.label=='HD Video') debugger;
                 if (t.type=='verticalMenu') {
                     t.onresize_vertical (t, it, levels, callback, windowHeight, windowWidth, parent, l, placingVertical, height, top, bottom, placing, width, left, right);
                 } else {
@@ -133,29 +133,28 @@ class naVividMenu {
     }
 
     onresize_vertical(t, it, levels, callback, windowHeight, windowWidth, parent, l, placingVertical, height, top, bottom, placing, width, left, right ) {
-                var
+                let
                 pl = null,
                 //columnCount = Math.floor(((placingVertical=='bottom'?bottom:top)-($(it.b.el).width()/3)) / $(it.b.el).width()),
                 rowCount =  Math.floor(((placingVertical=='bottom'?bottom:top)-($(it.b.el).height()/3)) / $(it.b.el).height()),
                 itemsOnLevelCount = 0;
                 
-                for (var j=0; j<t.items.length; j++) {
-                    var it2 = t.items[j];
+                for (let j=0; j<t.items.length; j++) {
+                    let it2 = t.items[j];
                     if (it2.parent === it.parent && it2.level === it.level) {
                         itemsOnLevelCount++;
                         //debugger;
                     }
                 };
                 
-                var 
+                let 
                 columnCount = Math.floor(Math.sqrt(itemsOnLevelCount)),
-                rowCount = Math.ceil(itemsOnLevelCount / columnCount),
                 column = 0,
                 columnIdx = 0,
                 row = 0,
                 rowIdx = 0;
+                rowCount = Math.ceil(itemsOnLevelCount / columnCount);
                 
-                var           
                 l = levels['path '+it.path];
                 if (!l) {
                     if (!parent || !levels['path '+parent.path]) {
@@ -170,7 +169,7 @@ class naVividMenu {
                         pl = levels['path '+parent.path];
                     }
                     
-                    var zof = pl.zIndexOffset + 1;
+                    let zof = pl.zIndexOffset + 1;
                     levels['path '+it.path] = jQuery.extend({}, pl);
                     levels['path '+it.path].offsetX = pl.offsetX;
                     levels['path '+it.path].offsetY = pl.offsetY;
@@ -180,9 +179,9 @@ class naVividMenu {
                     l = levels['path '+it.path];
                 };
                 
-                var row1 = l.row;
-                for (var j=0; j<t.items.length; j++) {
-                    var it2 = t.items[j];
+                let row1 = l.row;
+                for (let j=0; j<t.items.length; j++) {
+                    let it2 = t.items[j];
                     if (it2.parent === it.parent && it2.level === it.level) {
                         //debugger;
                         if (column >= columnCount) {
@@ -192,8 +191,8 @@ class naVividMenu {
                             column++;
                             row = row1;
                         }
-                        if ($('a',it.b.el)[0].innerHTML=='Dark mode') debugger;
-                        if ($('a',it.b.el)[0].innerHTML=='Landscape') debugger;
+                        //if ($('a',it.b.el)[0].innerHTML=='Dark mode') debugger;
+                        //if ($('a',it.b.el)[0].innerHTML=='Landscape') debugger;
                         if (it2.b.el.id === it.b.el.id) break;
                     } 
                 };
